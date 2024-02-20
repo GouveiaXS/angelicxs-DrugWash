@@ -87,6 +87,10 @@ CreateThread(function()
             end
             isLEO = LawEnforcement()
         end)
+        RegisterNetEvent('QBCore:Client:OnGangUpdate', function(InfoGang)
+            PlayerGang = InfoGang.name
+            PlayerRank = InfoGang.grade.level
+	end)
 
         QBCore.Functions.TriggerCallback('angelicxs-DrugWash:server:getWasher', function(cb)
             washspot = cb
@@ -115,9 +119,9 @@ CreateThread(function()
                             PedSpawned = false
                             if Config.UseThirdEye then
                                 if Config.ThirdEyeName == 'ox_target' then
-                                    exports.ox_target:removeZone('DrugWashSalePed')
+                                    exports.ox_target:removeZone('DrugWashSalePed'..tostring(info.location))
                                 else
-                                    exports[Config.ThirdEyeName]:RemoveZone('DrugWashSalePed')
+                                    exports[Config.ThirdEyeName]:RemoveZone('DrugWashSalePed'..tostring(info.location))
                                 end
                             end
                         end
@@ -169,7 +173,7 @@ RegisterNetEvent('angelicxs-DrugWash:PedSpawner',function(info, gang, druginfo)
         if Config.ThirdEyeName == 'ox_target' then
             local options = {
                 {
-                    name = 'DrugWashSalePed',
+                    name = 'DrugWashSalePed'..tostring(info.location),
                     label = Config.Lang['request_sale'],
                     onSelect = function()
                         TriggerEvent('angelicxs-DrugWash:CategoryMenu', info, druginfo)
@@ -183,8 +187,8 @@ RegisterNetEvent('angelicxs-DrugWash:PedSpawner',function(info, gang, druginfo)
             }
             exports.ox_target:addLocalEntity(SalePed, options)
         else
-            exports[Config.ThirdEyeName]:AddEntityZone('DrugWashSalePed', SalePed, {
-                name="DrugWashSalePed",
+            exports[Config.ThirdEyeName]:AddEntityZone('DrugWashSalePed'..tostring(info.location), SalePed, {
+                name="DrugWashSalePed"..tostring(info.location),
                 debugPoly=false,
                 useZ = true
                 }, {
