@@ -220,7 +220,7 @@ RegisterNetEvent('angelicxs-DrugWash:PedSpawner',function(info, gang, druginfo)
                     if Dist <= 15 then 
                         sleep = 0
                         if Dist <= 5 then 
-                            DrawText3Ds(Data2.x, Data2.y, Data2.z, Config.Lang['request_sale_3d'])
+                            DrawText3Ds(info.location.x, info.location.y, info.location.z, Config.Lang['request_sale_3d'])
                             if IsControlJustReleased(0, 38) then
                                 TriggerEvent('angelicxs-DrugWash:CategoryMenu', info, druginfo)
                             end
